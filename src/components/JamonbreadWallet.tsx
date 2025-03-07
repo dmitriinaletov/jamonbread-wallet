@@ -8,8 +8,6 @@ import { useState, useEffect } from "react";
 const JamonbreadWallet: React.FC = () => {
   const { balance, nfts, transactions } = useWalletData();
 
-  useEffect(() => {}, [balance, nfts, transactions]);
-
   const [selectedNftIndex, setSelectedNftIndex] = useState<number | null>(null);
 
   const handleNftClick = (index: number) => {
@@ -26,6 +24,18 @@ const JamonbreadWallet: React.FC = () => {
       setSelectedNftIndex(nextIndex);
     }
   };
+
+  useEffect(() => {
+    if (selectedNftIndex !== null) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "auto";
+    }
+
+    return () => {
+      document.body.style.overflow = "auto";
+    };
+  }, [selectedNftIndex]);
 
   return (
     <div className="container mx-auto p-6 max-w-6xl overflow-hidden">
