@@ -41,6 +41,6 @@ export interface TransactionsListProps {
   transactions: Transaction[];
 }
 
-export interface WalletInfoProps {
+export interface HeaderProps {
   balance: number | null;
 }

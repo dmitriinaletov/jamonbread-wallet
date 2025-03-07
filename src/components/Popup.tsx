@@ -15,7 +15,7 @@ const Popup: React.FC<{
           &times;
         </button>
         <button
-          className={`absolute left-1 top-1/2 transform -translate-y-1/2 text-6xl cursor-pointer transition-opacity ${
+          className={`absolute left-0.5 top-1/2 transform -translate-y-1/2 text-6xl cursor-pointer transition-opacity ${
             currentIndex === 0
               ? "opacity-50 cursor-not-allowed"
               : "text-gray-600 hover:text-gray-800"
@@ -26,7 +26,7 @@ const Popup: React.FC<{
           &#8249;
         </button>
         <button
-          className={`absolute right-1 top-1/2 transform -translate-y-1/2 text-6xl cursor-pointer transition-opacity ${
+          className={`absolute right-0.5 top-1/2 transform -translate-y-1/2 text-6xl cursor-pointer transition-opacity ${
             currentIndex === totalNfts - 1
               ? "opacity-50 cursor-not-allowed"
               : "text-gray-600 hover:text-gray-800"
