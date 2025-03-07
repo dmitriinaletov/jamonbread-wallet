@@ -41,7 +41,7 @@ const JamonbreadWallet: React.FC = () => {
     <div className="container mx-auto p-6 max-w-6xl overflow-hidden">
       <Header balance={balance} />
       <NftGallery nfts={nfts} onNftClick={handleNftClick} />
-      <TransactionsList transactions={transactions} />
+      {/* <TransactionsList transactions={transactions} /> */}
       {selectedNftIndex !== null && (
         <Popup
           nft={nfts[selectedNftIndex]}
