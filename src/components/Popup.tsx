@@ -1,7 +1,10 @@
-const Popup: React.FC<{ nft: any; onClose: () => void }> = ({
-  nft,
-  onClose,
-}) => {
+const Popup: React.FC<{
+  nft: any;
+  onClose: () => void;
+  onNavigate: (direction: "left" | "right") => void;
+  currentIndex: number;
+  totalNfts: number;
+}> = ({ nft, onClose, onNavigate, currentIndex, totalNfts }) => {
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4">
       <div className="bg-white p-6 rounded-lg shadow-lg max-w-lg w-full relative">
@@ -10,6 +13,22 @@ const Popup: React.FC<{ nft: any; onClose: () => void }> = ({
           onClick={onClose}
         >
           &times;
+        </button>
+
+        <button
+          className="absolute left-2 top-1/2 transform -translate-y-1/2 text-2xl text-gray-600 hover:text-gray-800 cursor-pointer"
+          onClick={() => onNavigate("left")}
+          disabled={currentIndex === 0}
+        >
+          &#8249;
+        </button>
+
+        <button
+          className="absolute right-2 top-1/2 transform -translate-y-1/2 text-2xl text-gray-600 hover:text-gray-800 cursor-pointer"
+          onClick={() => onNavigate("right")}
+          disabled={currentIndex === totalNfts - 1}
+        >
+          &#8250;
         </button>
 
         <h2 className="text-2xl font-semibold text-center mb-4">{nft.name}</h2>

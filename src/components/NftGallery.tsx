@@ -16,7 +16,9 @@ const NftGallery: React.FC<
             <div
               key={index}
               className="p-3 border rounded-lg shadow-md bg-white w-full cursor-pointer"
-              onClick={() => onNftClick(nft)}
+              onClick={() => {
+                onNftClick(index);
+              }}
             >
               <h3 className="text-md font-medium mb-2 text-center">
                 {nft.name}
