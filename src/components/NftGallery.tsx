@@ -1,6 +1,8 @@
 import { NftGalleryProps } from "../types/types";
 
-const NftGallery: React.FC<NftGalleryProps> = ({ nfts }) => {
+const NftGallery: React.FC<
+  NftGalleryProps & { onNftClick: (nft: any) => void }
+> = ({ nfts, onNftClick }) => {
   return (
     <div className="mt-8 w-full">
       <h2 className="text-2xl font-semibold text-center mb-4">
@@ -13,12 +15,13 @@ const NftGallery: React.FC<NftGalleryProps> = ({ nfts }) => {
           nfts.map((nft, index) => (
             <div
               key={index}
-              className="p-6 border rounded-lg shadow-md bg-white w-full"
+              className="p-3 border rounded-lg shadow-md bg-white w-full cursor-pointer"
+              onClick={() => onNftClick(nft)}
             >
-              <h3 className="text-lg font-medium mb-2 text-center">
+              <h3 className="text-md font-medium mb-2 text-center">
                 {nft.name}
               </h3>
-              {nft.image && typeof nft.image === "string" ? (
+              {nft.image ? (
                 <img
                   src={nft.image.replace("ipfs://", "https://ipfs.io/ipfs/")}
                   alt={nft.name}
@@ -27,11 +30,6 @@ const NftGallery: React.FC<NftGalleryProps> = ({ nfts }) => {
               ) : (
                 <p>Image unavailable</p>
               )}
-              <p className="mt-2 text-sm text-gray-600 text-center">
-                {Array.isArray(nft.description) && nft.description.length > 0
-                  ? nft.description.join(" ")
-                  : "Description unavailable"}
-              </p>
             </div>
           ))
         )}

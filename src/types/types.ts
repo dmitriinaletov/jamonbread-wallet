@@ -23,7 +23,14 @@ export interface Utxo {
 export interface NftMetadata {
   name: string;
   image: string;
-  description: string[];
+  description: string;
+  artist: string;
+  country: string;
+  blockchain: string;
+  inspiration: string;
+  symbol: string;
+  mintingDate: string;
+  validityPeriod: string;
 }
 
 export interface NftGalleryProps {

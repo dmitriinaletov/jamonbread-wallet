@@ -33,6 +33,22 @@ const useWalletData = () => {
           .filter((a) => a.unit !== "lovelace")
           .map((a) => a.unit);
 
+        const getFormattedField = (
+          metadata: any,
+          field: string,
+          isImage = false
+        ) => {
+          const value =
+            metadata[field] ||
+            metadata[field.charAt(0).toUpperCase() + field.slice(1)];
+
+          if (Array.isArray(value)) {
+            return isImage ? value.join("") : value.join(" ");
+          }
+
+          return value;
+        };
+
         const fetchNftMetadata = async () => {
           const nftData: NftMetadata[] = [];
 
@@ -40,24 +56,31 @@ const useWalletData = () => {
             try {
               const nftMetadataResponse = await axios.get(
                 `${API_URL}/assets/${token}`,
-                {
-                  headers: { project_id: API_KEY },
-                }
+                { headers: { project_id: API_KEY } }
               );
-
               const metadata = nftMetadataResponse.data.onchain_metadata;
-              if (metadata && metadata.image) {
+
+              if (metadata) {
                 nftData.push({
-                  name: metadata.name || "Unknown NFT",
-                  image: metadata.image,
-                  description: metadata.description || [],
+                  name: getFormattedField(metadata, "name"),
+                  image: getFormattedField(metadata, "image", true),
+                  description: getFormattedField(metadata, "description"),
+                  artist: getFormattedField(metadata, "artist"),
+                  country: getFormattedField(metadata, "country"),
+                  blockchain: getFormattedField(metadata, "blockchain"),
+                  inspiration: getFormattedField(metadata, "inspiration"),
+                  symbol: getFormattedField(metadata, "symbol"),
+                  mintingDate: getFormattedField(metadata, "Minting Date"),
+                  validityPeriod: getFormattedField(
+                    metadata,
+                    "Validity Period"
+                  ),
                 });
               }
             } catch (error) {
               console.error("Error fetching NFT metadata:", error);
             }
           }
-
           setNfts(nftData);
         };
 
