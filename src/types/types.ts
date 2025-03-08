@@ -1,11 +1,12 @@
 export interface Amount {
   unit: string;
-  quantity: string | bigint;
+  quantity: string;
 }
 
 export interface Transaction {
   tx_hash: string;
   amount: readonly Amount[];
+  details?: any;
 }
 
 export interface Utxo {
@@ -39,8 +40,10 @@ export interface NftGalleryProps {
 
 export interface TransactionsListProps {
   transactions: Transaction[];
+  nfts: NftMetadata[];
 }
 
 export interface HeaderProps {
   balance: number | null;
+  onBalanceClick: () => void;
 }

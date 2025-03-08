@@ -130,7 +130,7 @@ const useWalletData = () => {
                 details: response.details,
               }));
 
-            setTransactions(transactionsWithDetails);
+            setTransactions(transactionsWithDetails.slice(0, 5));
           })
           .catch((error) => {
             console.error("Error processing transaction details:", error);
