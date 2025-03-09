@@ -1,8 +1,8 @@
-import { useTransactions } from "../hooks/useTransactions";
+import { TransactionsListProps } from "../types/types";
 
-export const TransactionsList: React.FC = () => {
-  const transactions = useTransactions();
-
+export const TransactionsList: React.FC<TransactionsListProps> = ({
+  transactions,
+}) => {
   return (
     <div className="mt-8 bg-white shadow-lg rounded-lg p-6 w-full overflow-hidden">
       <h2 className="text-2xl font-semibold text-center mb-4">

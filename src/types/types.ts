@@ -3,10 +3,22 @@ export type Amount = {
   quantity: string;
 };
 
+export type TransactionDetails = {
+  hash: string;
+  block: string;
+  block_height: number;
+  block_time: number;
+  slot: number;
+  output_amount: Amount[];
+  fees: string;
+  deposit: string;
+  size: number;
+};
+
 export type Transaction = {
   tx_hash: string;
   amount: readonly Amount[];
-  details?: any;
+  details?: TransactionDetails;
 };
 
 export type Utxo = {
@@ -36,11 +48,11 @@ export type NftMetadata = {
 
 export type NftGalleryProps = {
   nfts: NftMetadata[];
+  onNftClick: (index: number) => void;
 };
 
 export type TransactionsListProps = {
   transactions: Transaction[];
-  nfts: NftMetadata[];
 };
 
 export type HeaderProps = {

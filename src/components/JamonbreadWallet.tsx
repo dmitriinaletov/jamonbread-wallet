@@ -1,17 +1,18 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useTransactions } from "../hooks/useTransactions";
-import { useNfts } from "../hooks/useNfts"; // Подключаем хук для NFTimport { NftGallery } from "./NftGallery";
+import { useNfts } from "../hooks/useNfts";
 import { Popup } from "./popup/Popup";
 import { Header } from "./Header";
 import { NftDetails } from "./popup/NftDetails";
 import { TransactionDetails } from "./popup/TransactionDetails";
 import { NavigationButtons } from "./popup/NavigationButtons";
 import { NftGallery } from "./NftGallery";
+import { TransactionsList } from "./TransactionsList";
 import { Transaction } from "../types/types";
 
 const JamonbreadWallet: React.FC = () => {
-  const transactions = useTransactions(); // Получаем транзакции
-  const nfts = useNfts(); // Получаем NFT
+  const transactions = useTransactions();
+  const nfts = useNfts();
 
   const [selectedNftIndex, setSelectedNftIndex] = useState<number | null>(null);
   const [selectedTransaction, setSelectedTransaction] =
@@ -49,7 +50,8 @@ const JamonbreadWallet: React.FC = () => {
   return (
     <div className="container mx-auto p-6 max-w-6xl overflow-hidden">
       <Header onBalanceClick={handleBalanceClick} />
-      <NftGallery onNftClick={handleNftClick} />
+      <TransactionsList transactions={transactions} />
+      <NftGallery nfts={nfts} onNftClick={handleNftClick} />
       {selectedNftIndex !== null && (
         <Popup onClose={() => setSelectedNftIndex(null)}>
           <NftDetails nft={nfts[selectedNftIndex]} />
@@ -60,7 +62,6 @@ const JamonbreadWallet: React.FC = () => {
           />
         </Popup>
       )}
-
       {selectedTransaction && (
         <Popup onClose={() => setSelectedTransaction(null)}>
           <TransactionDetails transaction={selectedTransaction} />

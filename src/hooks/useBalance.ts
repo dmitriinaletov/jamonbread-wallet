@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { API_URL, API_KEY, ADDRESS } from "../config"; // Вынесем конфиг в отдельный файл
+import { API_URL, API_KEY, ADDRESS } from "../config";
 
 export const useBalance = () => {
   const [balance, setBalance] = useState<number | null>(null);
