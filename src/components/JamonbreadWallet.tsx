@@ -39,6 +39,22 @@ const JamonbreadWallet: React.FC = () => {
     }
   };
 
+  const handleKeyDown = (event: KeyboardEvent) => {
+    if (event.key === "ArrowLeft") {
+      handleNavigate("left");
+    } else if (event.key === "ArrowRight") {
+      handleNavigate("right");
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [selectedNftIndex]);
+
   useEffect(() => {
     document.body.style.overflow =
       selectedNftIndex !== null ? "hidden" : "auto";
