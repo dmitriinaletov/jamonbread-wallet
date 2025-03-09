@@ -7,25 +7,21 @@ import { NftDetails } from "./popup/NftDetails";
 import { TransactionDetails } from "./popup/TransactionDetails";
 import { NavigationButtons } from "./popup/NavigationButtons";
 import { NftGallery } from "./NftGallery";
-import { TransactionsList } from "./TransactionsList";
-import { Transaction } from "../types/types";
 
 const JamonbreadWallet: React.FC = () => {
   const transactions = useTransactions();
   const nfts = useNfts();
 
   const [selectedNftIndex, setSelectedNftIndex] = useState<number | null>(null);
-  const [selectedTransaction, setSelectedTransaction] =
-    useState<Transaction | null>(null);
+  const [showTransactionPopup, setShowTransactionPopup] =
+    useState<boolean>(false);
 
   const handleNftClick = (index: number) => {
     setSelectedNftIndex(index);
   };
 
   const handleBalanceClick = () => {
-    if (transactions.length > 0) {
-      setSelectedTransaction(transactions[0]);
-    }
+    setShowTransactionPopup(true);
   };
 
   const handleNavigate = (direction: "left" | "right") => {
@@ -55,18 +51,9 @@ const JamonbreadWallet: React.FC = () => {
     };
   }, [selectedNftIndex]);
 
-  useEffect(() => {
-    document.body.style.overflow =
-      selectedNftIndex !== null ? "hidden" : "auto";
-    return () => {
-      document.body.style.overflow = "auto";
-    };
-  }, [selectedNftIndex]);
-
   return (
     <div className="container mx-auto p-6 max-w-6xl overflow-hidden">
       <Header onBalanceClick={handleBalanceClick} />
-      <TransactionsList transactions={transactions} />
       <NftGallery nfts={nfts} onNftClick={handleNftClick} />
       {selectedNftIndex !== null && (
         <Popup onClose={() => setSelectedNftIndex(null)}>
@@ -78,9 +65,9 @@ const JamonbreadWallet: React.FC = () => {
           />
         </Popup>
       )}
-      {selectedTransaction && (
-        <Popup onClose={() => setSelectedTransaction(null)}>
-          <TransactionDetails transaction={selectedTransaction} />
+      {showTransactionPopup && (
+        <Popup onClose={() => setShowTransactionPopup(false)}>
+          <TransactionDetails transactions={transactions} />
         </Popup>
       )}
     </div>
