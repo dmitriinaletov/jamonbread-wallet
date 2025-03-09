@@ -1,8 +1,10 @@
-export const NavigationButtons: React.FC<{
-  currentIndex: number;
-  totalNfts: number;
-  onNavigate: (direction: "left" | "right") => void;
-}> = ({ currentIndex, totalNfts, onNavigate }) => {
+import { NavigationButtonsProps } from "../../types/types";
+
+export const NavigationButtons: React.FC<NavigationButtonsProps> = ({
+  currentIndex,
+  totalItems,
+  onNavigate,
+}) => {
   return (
     <>
       <button
@@ -18,12 +20,12 @@ export const NavigationButtons: React.FC<{
       </button>
       <button
         className={`absolute right-2 top-1/2 transform -translate-y-1/2 text-4xl cursor-pointer transition-opacity ${
-          currentIndex === totalNfts - 1
+          currentIndex === totalItems - 1
             ? "opacity-50 cursor-not-allowed"
             : "text-gray-600 hover:text-gray-800"
         }`}
         onClick={() => onNavigate("right")}
-        disabled={currentIndex === totalNfts - 1}
+        disabled={currentIndex === totalItems - 1}
       >
         &#8250;
       </button>

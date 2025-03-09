@@ -57,7 +57,7 @@ const JamonbreadWallet: React.FC = () => {
           <NftDetails nft={nfts[selectedNftIndex]} />
           <NavigationButtons
             currentIndex={selectedNftIndex}
-            totalNfts={nfts.length}
+            totalItems={nfts.length}
             onNavigate={handleNavigate}
           />
         </Popup>

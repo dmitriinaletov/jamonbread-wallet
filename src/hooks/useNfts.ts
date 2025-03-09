@@ -3,6 +3,19 @@ import axios from "axios";
 import { NftMetadata, Utxo } from "../types/types";
 import { API_URL, API_KEY, ADDRESS } from "../config";
 
+const getFormattedField = (
+  metadata: NftMetadata,
+  field: keyof NftMetadata
+): string => {
+  const value = metadata[field];
+  const joinWith = field === "image" ? "" : " ";
+
+  if (Array.isArray(value)) {
+    return value.join(joinWith);
+  }
+  return value || "";
+};
+
 export const useNfts = () => {
   const [nfts, setNfts] = useState<NftMetadata[]>([]);
 
@@ -17,47 +30,29 @@ export const useNfts = () => {
           .filter((a) => a.unit !== "lovelace")
           .map((a) => a.unit);
 
-        const getFormattedField = (
-          metadata: any,
-          field: string,
-          isImage = false
-        ) => {
-          const value =
-            metadata[field] ||
-            metadata[field.charAt(0).toUpperCase() + field.slice(1)];
-          return Array.isArray(value)
-            ? isImage
-              ? value.join("")
-              : value.join(" ")
-            : value;
-        };
-
         const fetchNftMetadata = async () => {
           const nftData: NftMetadata[] = [];
           const nftPromises = nftTokens.map((token, index) =>
             axios
-              .get(`${API_URL}/assets/${token}`, {
-                headers: { project_id: API_KEY },
-              })
+              .get<{ onchain_metadata: NftMetadata }>(
+                `${API_URL}/assets/${token}`,
+                {
+                  headers: { project_id: API_KEY },
+                }
+              )
               .then((nftMetadataResponse) => {
                 const metadata = nftMetadataResponse.data.onchain_metadata;
+                console.log(metadata);
                 if (metadata) {
                   return {
                     index,
                     metadata: {
                       name: getFormattedField(metadata, "name"),
-                      image: getFormattedField(metadata, "image", true),
-                      description: getFormattedField(metadata, "description"),
-                      artist: getFormattedField(metadata, "artist"),
-                      country: getFormattedField(metadata, "country"),
-                      blockchain: getFormattedField(metadata, "blockchain"),
-                      inspiration: getFormattedField(metadata, "inspiration"),
-                      symbol: getFormattedField(metadata, "symbol"),
-                      mintingDate: getFormattedField(metadata, "Minting Date"),
-                      validityPeriod: getFormattedField(
-                        metadata,
-                        "Validity Period"
-                      ),
+                      image: getFormattedField(metadata, "image"),
+                      description:
+                        getFormattedField(metadata, "description") ||
+                        getFormattedField(metadata, "Description") ||
+                        getFormattedField(metadata, "message"),
                     },
                   };
                 }

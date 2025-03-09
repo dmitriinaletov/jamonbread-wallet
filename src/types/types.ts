@@ -36,14 +36,9 @@ export type Utxo = {
 export type NftMetadata = {
   name: string;
   image: string;
-  description: string;
-  artist: string;
-  country: string;
-  blockchain: string;
-  inspiration: string;
-  symbol: string;
-  mintingDate: string;
-  validityPeriod: string;
+  description?: string;
+  Description?: string;
+  message?: string;
 };
 
 export type NftGalleryProps = {
@@ -57,4 +52,12 @@ export type TransactionsListProps = {
 
 export type HeaderProps = {
   onBalanceClick: () => void;
+};
+
+export type NavigationDirection = "left" | "right";
+
+export type NavigationButtonsProps = {
+  currentIndex: number;
+  totalItems: number;
+  onNavigate: (direction: NavigationDirection) => void;
 };
