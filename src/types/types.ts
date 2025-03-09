@@ -1,15 +1,15 @@
-export interface Amount {
+export type Amount = {
   unit: string;
   quantity: string;
-}
+};
 
-export interface Transaction {
+export type Transaction = {
   tx_hash: string;
   amount: readonly Amount[];
   details?: any;
-}
+};
 
-export interface Utxo {
+export type Utxo = {
   address: string;
   tx_hash: string;
   tx_index: number;
@@ -19,9 +19,9 @@ export interface Utxo {
   data_hash: string;
   inline_datum: string;
   reference_script_hash: string | null;
-}
+};
 
-export interface NftMetadata {
+export type NftMetadata = {
   name: string;
   image: string;
   description: string;
@@ -32,18 +32,17 @@ export interface NftMetadata {
   symbol: string;
   mintingDate: string;
   validityPeriod: string;
-}
+};
 
-export interface NftGalleryProps {
+export type NftGalleryProps = {
   nfts: NftMetadata[];
-}
+};
 
-export interface TransactionsListProps {
+export type TransactionsListProps = {
   transactions: Transaction[];
   nfts: NftMetadata[];
-}
+};
 
-export interface HeaderProps {
-  balance: number | null;
+export type HeaderProps = {
   onBalanceClick: () => void;
-}
+};

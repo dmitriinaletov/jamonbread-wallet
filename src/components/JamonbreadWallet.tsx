@@ -1,16 +1,19 @@
-import { NftGallery } from "./NftGallery";
-// import { TransactionsList } from "./TransactionsList";
-import { useWalletData } from "../hooks/useWalletData";
-import { Popup } from "./Popup";
 import { useState, useEffect } from "react";
+import { useTransactions } from "../hooks/useTransactions";
+import { useNfts } from "../hooks/useNfts"; // Подключаем хук для NFTimport { NftGallery } from "./NftGallery";
+import { Popup } from "./popup/Popup";
 import { Header } from "./Header";
+import { NftDetails } from "./popup/NftDetails";
+import { TransactionDetails } from "./popup/TransactionDetails";
+import { NavigationButtons } from "./popup/NavigationButtons";
+import { NftGallery } from "./NftGallery";
 import { Transaction } from "../types/types";
 
 const JamonbreadWallet: React.FC = () => {
-  const { balance, nfts, transactions } = useWalletData();
+  const transactions = useTransactions(); // Получаем транзакции
+  const nfts = useNfts(); // Получаем NFT
 
   const [selectedNftIndex, setSelectedNftIndex] = useState<number | null>(null);
-
   const [selectedTransaction, setSelectedTransaction] =
     useState<Transaction | null>(null);
 
@@ -36,12 +39,8 @@ const JamonbreadWallet: React.FC = () => {
   };
 
   useEffect(() => {
-    if (selectedNftIndex !== null) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "auto";
-    }
-
+    document.body.style.overflow =
+      selectedNftIndex !== null ? "hidden" : "auto";
     return () => {
       document.body.style.overflow = "auto";
     };
@@ -49,21 +48,23 @@ const JamonbreadWallet: React.FC = () => {
 
   return (
     <div className="container mx-auto p-6 max-w-6xl overflow-hidden">
-      <Header balance={balance} onBalanceClick={handleBalanceClick} />
-      <NftGallery nfts={nfts} onNftClick={handleNftClick} />
-      {/* <TransactionsList transactions={transactions} /> */}
-      {(selectedNftIndex !== null || selectedTransaction) && (
-        <Popup
-          nft={selectedNftIndex !== null ? nfts[selectedNftIndex] : undefined}
-          transaction={selectedTransaction || undefined}
-          onClose={() => {
-            setSelectedNftIndex(null);
-            setSelectedTransaction(null);
-          }}
-          onNavigate={selectedNftIndex !== null ? handleNavigate : undefined}
-          currentIndex={selectedNftIndex ?? undefined}
-          totalNfts={nfts.length}
-        />
+      <Header onBalanceClick={handleBalanceClick} />
+      <NftGallery onNftClick={handleNftClick} />
+      {selectedNftIndex !== null && (
+        <Popup onClose={() => setSelectedNftIndex(null)}>
+          <NftDetails nft={nfts[selectedNftIndex]} />
+          <NavigationButtons
+            currentIndex={selectedNftIndex}
+            totalNfts={nfts.length}
+            onNavigate={handleNavigate}
+          />
+        </Popup>
+      )}
+
+      {selectedTransaction && (
+        <Popup onClose={() => setSelectedTransaction(null)}>
+          <TransactionDetails transaction={selectedTransaction} />
+        </Popup>
       )}
     </div>
   );

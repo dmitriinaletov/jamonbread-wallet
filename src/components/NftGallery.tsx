@@ -1,8 +1,10 @@
-import { NftGalleryProps } from "../types/types";
+import { useNfts } from "../hooks/useNfts";
 
-const NftGallery: React.FC<
-  NftGalleryProps & { onNftClick: (nft: any) => void }
-> = ({ nfts, onNftClick }) => {
+export const NftGallery: React.FC<{ onNftClick: (index: number) => void }> = ({
+  onNftClick,
+}) => {
+  const nfts = useNfts();
+
   return (
     <div className="mt-8 w-full">
       <h2 className="text-xl font-semibold text-left mb-4">
@@ -14,11 +16,9 @@ const NftGallery: React.FC<
         ) : (
           nfts.map((nft, index) => (
             <div
-              key={index}
+              key={index} // schválně tady mám index, jelikož nft token podle mě je citlívá infomace, ale id v metadatech nft nemají, nevím či tady mohu použit token
               className="p-3 border rounded-lg shadow-md bg-white w-full cursor-pointer"
-              onClick={() => {
-                onNftClick(index);
-              }}
+              onClick={() => onNftClick(index)}
             >
               <h3 className="text-md font-medium mb-2 text-center">
                 {nft.name}
@@ -39,5 +39,3 @@ const NftGallery: React.FC<
     </div>
   );
 };
-
-export { NftGallery };
