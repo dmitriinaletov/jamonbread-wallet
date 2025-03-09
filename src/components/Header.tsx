@@ -15,7 +15,7 @@ export const Header: React.FC<HeaderProps> = ({ onBalanceClick }) => {
       <div className="relative group cursor-pointer" onClick={onBalanceClick}>
         <div className="text-2xl font-semibold text-gray-800 flex items-center">
           <img src={balanceIcon} alt="Balance Icon" className="mr-2 w-6 h-6" />
-          {balance !== null ? `₳ ${balance}` : "Loading..."}
+          {balance !== null ? `${balance} ₳` : "Loading..."}
         </div>
         <div className="absolute hidden group-hover:block bg-black text-white text-sm px-2 py-1 rounded-md top-full mt-1 left-1/2 transform -translate-x-1/2 z-10 whitespace-nowrap">
           Click to see details

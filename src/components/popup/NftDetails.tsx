@@ -13,7 +13,7 @@ export const NftDetails: React.FC<{ nft: NftMetadata }> = ({ nft }) => {
       ) : (
         <p className="text-gray-500">Image unavailable</p>
       )}
-      <p className="text-sm text-gray-600 mt-2">
+      <p className="text-left text-sm text-gray-600 mt-2">
         {nft.description || "No description available"}
       </p>
     </div>

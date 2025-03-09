@@ -42,7 +42,6 @@ export const useNfts = () => {
               )
               .then((nftMetadataResponse) => {
                 const metadata = nftMetadataResponse.data.onchain_metadata;
-                console.log(metadata);
                 if (metadata) {
                   return {
                     index,
@@ -78,6 +77,5 @@ export const useNfts = () => {
         console.error("Error fetching NFTs:", error);
       });
   }, []);
-
   return nfts;
 };

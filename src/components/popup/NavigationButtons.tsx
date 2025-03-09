@@ -8,7 +8,7 @@ export const NavigationButtons: React.FC<NavigationButtonsProps> = ({
   return (
     <>
       <button
-        className={`absolute left-2 top-1/2 transform -translate-y-1/2 text-4xl cursor-pointer transition-opacity ${
+        className={`absolute left-0.5 top-1/2 transform -translate-y-1/2 text-6xl cursor-pointer transition-opacity ${
           currentIndex === 0
             ? "opacity-50 cursor-not-allowed"
             : "text-gray-600 hover:text-gray-800"
@@ -19,7 +19,7 @@ export const NavigationButtons: React.FC<NavigationButtonsProps> = ({
         &#8249;
       </button>
       <button
-        className={`absolute right-2 top-1/2 transform -translate-y-1/2 text-4xl cursor-pointer transition-opacity ${
+        className={`absolute right-0.5 top-1/2 transform -translate-y-1/2 text-6xl cursor-pointer transition-opacity ${
           currentIndex === totalItems - 1
             ? "opacity-50 cursor-not-allowed"
             : "text-gray-600 hover:text-gray-800"

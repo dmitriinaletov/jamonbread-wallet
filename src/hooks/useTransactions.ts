@@ -33,7 +33,7 @@ export const useTransactions = () => {
                 details: response.details,
               }));
 
-            setTransactions(transactionsWithDetails.slice(0, 5));
+            setTransactions(transactionsWithDetails.slice(0, 10));
           })
           .catch((error) => {
             console.error("Error processing transaction details:", error);
