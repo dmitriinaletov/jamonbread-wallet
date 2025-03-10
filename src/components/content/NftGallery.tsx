@@ -1,4 +1,4 @@
-import { NftGalleryProps } from "../types/types";
+import { NftGalleryProps } from "../../types/types";
 
 export const NftGallery: React.FC<NftGalleryProps> = ({ nfts, onNftClick }) => {
   return (

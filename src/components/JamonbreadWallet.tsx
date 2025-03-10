@@ -1,13 +1,13 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useTransactions } from "../hooks/useTransactions";
 import { useNfts } from "../hooks/useNfts";
 import { Popup } from "./popup/Popup";
-import { Header } from "./Header";
-import { NftDetails } from "./popup/NftDetails";
-import { TransactionDetails } from "./popup/TransactionDetails";
-import { NavigationButtons } from "./popup/NavigationButtons";
-import { NftGallery } from "./NftGallery";
-import { Footer } from "./Footer";
+import { Header } from "./layout/Header";
+import { NftDetails } from "./content/NftDetails";
+import { TransactionDetails } from "./content/TransactionDetails";
+import { NavigationButtons } from "./generic/NavigationButtons";
+import { NftGallery } from "./content/NftGallery";
+import { Footer } from "./layout/Footer";
 
 const JamonbreadWallet: React.FC = () => {
   const transactions = useTransactions();

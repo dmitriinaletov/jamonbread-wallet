@@ -1,7 +1,7 @@
-import { HeaderProps } from "../types/types";
-import { useBalance } from "../hooks/useBalance";
-import logo from "../assets/wallet-svgrepo-com.svg";
-import balanceIcon from "../assets/coins-currency-svgrepo-com.svg";
+import { HeaderProps } from "../../types/types";
+import { useBalance } from "../../hooks/useBalance";
+import logo from "../../assets/wallet-svgrepo-com.svg";
+import balanceIcon from "../../assets/coins-currency-svgrepo-com.svg";
 
 export const Header: React.FC<HeaderProps> = ({ onBalanceClick }) => {
   const balance = useBalance();
