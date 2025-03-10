@@ -36,10 +36,16 @@ export type HeaderProps = {
   onBalanceClick: () => void;
 };
 
-export type NavigationDirection = "left" | "right";
-
-export type NavigationButtonsProps = {
+export type NftDetailsProps = {
+  nft: NftMetadata;
   currentIndex: number;
   totalItems: number;
-  onNavigate: (direction: NavigationDirection) => void;
+  onNavigate: (direction: "left" | "right") => void;
+};
+
+export type ButtonProps = {
+  onClick: () => void;
+  disabled?: boolean;
+  className?: string;
+  children?: React.ReactNode;
 };

@@ -5,7 +5,6 @@ import { Popup } from "./popup/Popup";
 import { Header } from "./layout/Header";
 import { NftDetails } from "./content/NftDetails";
 import { TransactionDetails } from "./content/TransactionDetails";
-import { NavigationButtons } from "./generic/NavigationButtons";
 import { NftGallery } from "./content/NftGallery";
 import { Footer } from "./layout/Footer";
 
@@ -58,8 +57,8 @@ const JamonbreadWallet: React.FC = () => {
       <NftGallery nfts={nfts} onNftClick={handleNftClick} />
       {selectedNftIndex !== null && (
         <Popup onClose={() => setSelectedNftIndex(null)}>
-          <NftDetails nft={nfts[selectedNftIndex]} />
-          <NavigationButtons
+          <NftDetails
+            nft={nfts[selectedNftIndex]}
             currentIndex={selectedNftIndex}
             totalItems={nfts.length}
             onNavigate={handleNavigate}
