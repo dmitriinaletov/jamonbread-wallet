@@ -44,6 +44,5 @@ export const useTransactions = () => {
       });
   }, []);
 
-  console.log(transactions);
   return transactions;
 };
