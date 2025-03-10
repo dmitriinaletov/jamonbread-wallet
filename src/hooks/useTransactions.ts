@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { Transaction } from "../types/types";
+import { Transaction, TransactionDetails } from "../types/types";
 import { API_URL, API_KEY, ADDRESS } from "../config";
 
 export const useTransactions = () => {
@@ -12,28 +12,28 @@ export const useTransactions = () => {
         headers: { project_id: API_KEY },
       })
       .then((res) => {
-        const transactionDetailsPromises = res.data.map((tx, index) =>
+        const transactionDetailsPromises = res.data.map((tx) =>
           axios
             .get(`${API_URL}/txs/${tx.tx_hash}`, {
               headers: { project_id: API_KEY },
             })
-            .then((response) => ({ index, details: response.data }))
+            .then((response) => ({
+              ...tx,
+              details: response.data as TransactionDetails,
+            }))
             .catch((error) => {
               console.error("Error fetching transaction details:", error);
-              return { index, details: null };
+              return { ...tx, details: undefined };
             })
         );
 
         Promise.all(transactionDetailsPromises)
-          .then((responses) => {
-            const transactionsWithDetails = responses
-              .sort((a, b) => a.index - b.index)
-              .map((response, index) => ({
-                ...res.data[index],
-                details: response.details,
-              }));
+          .then((transactionsWithDetails) => {
+            const sortedTransactions = transactionsWithDetails
+              .filter((tx) => tx.details !== undefined)
+              .sort((a, b) => b.details!.block_time - a.details!.block_time);
 
-            setTransactions(transactionsWithDetails.slice(0, 10));
+            setTransactions(sortedTransactions.slice(0, 10));
           })
           .catch((error) => {
             console.error("Error processing transaction details:", error);
@@ -44,5 +44,6 @@ export const useTransactions = () => {
       });
   }, []);
 
+  console.log(transactions);
   return transactions;
 };
