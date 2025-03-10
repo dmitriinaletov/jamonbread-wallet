@@ -7,6 +7,7 @@ import { NftDetails } from "./popup/NftDetails";
 import { TransactionDetails } from "./popup/TransactionDetails";
 import { NavigationButtons } from "./popup/NavigationButtons";
 import { NftGallery } from "./NftGallery";
+import { Footer } from "./Footer";
 
 const JamonbreadWallet: React.FC = () => {
   const transactions = useTransactions();
@@ -70,6 +71,7 @@ const JamonbreadWallet: React.FC = () => {
           <TransactionDetails transactions={transactions} />
         </Popup>
       )}
+      <Footer />
     </div>
   );
 };
