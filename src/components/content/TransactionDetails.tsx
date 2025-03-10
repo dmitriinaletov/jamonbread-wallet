@@ -32,7 +32,7 @@ export const TransactionDetails: React.FC<{ transactions: Transaction[] }> = ({
               key={transaction.tx_hash}
               className="mb-6 p-4 border rounded-lg shadow-md bg-white mx-auto w-[calc(100%-2rem)]"
             >
-              <div className="grid grid-cols-2 gap-4 mb-2">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
                 <div className="text-sm text-gray-600">
                   <strong>Amount:</strong> {formattedAda} ₳
                 </div>
@@ -40,7 +40,7 @@ export const TransactionDetails: React.FC<{ transactions: Transaction[] }> = ({
                   <strong>Fee:</strong> {fee} ₳
                 </div>
               </div>
-              <div className="grid grid-cols-2 gap-4 mb-2">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
                 <div className="text-sm text-gray-600">
                   <strong>Date:</strong> {date}
                 </div>
