@@ -5,7 +5,9 @@ export const TransactionDetails: React.FC<{ transactions: Transaction[] }> = ({
 }) => {
   return (
     <div className="text-left">
-      <h2 className="text-2xl font-semibold mb-4">Recent Transactions</h2>
+      <div className="w-[calc(100%-2rem)] mx-auto">
+        <h2 className="text-2xl font-semibold mb-4">Recent Transactions</h2>
+      </div>
       {transactions.length === 0 ? (
         <p className="text-sm text-gray-600">No transactions available</p>
       ) : (
@@ -28,7 +30,7 @@ export const TransactionDetails: React.FC<{ transactions: Transaction[] }> = ({
           return (
             <div
               key={transaction.tx_hash}
-              className="mb-6 p-4 border rounded-lg shadow-md bg-white"
+              className="mb-6 p-4 border rounded-lg shadow-md bg-white mx-auto w-[calc(100%-2rem)]"
             >
               <div className="grid grid-cols-2 gap-4 mb-2">
                 <div className="text-sm text-gray-600">
