@@ -30,26 +30,31 @@ export const TransactionDetails: React.FC<{ transactions: Transaction[] }> = ({
               key={transaction.tx_hash}
               className="mb-6 p-4 border rounded-lg shadow-md bg-white"
             >
-              <p className="text-sm text-gray-600">
-                <strong>Date:</strong> {date}
-              </p>
-              <p className="text-sm text-gray-600">
-                <strong>Amount:</strong> {formattedAda} ₳
-              </p>
-              <p className="text-sm text-gray-600">
-                <strong>Fee:</strong> {fee} ₳
-              </p>
-              <p className="text-sm text-gray-600 truncate">
-                <strong>Tx Hash:</strong>{" "}
-                <a
-                  href={`https://cardanoscan.io/transaction/${transaction.tx_hash}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-blue-500 underline"
-                >
-                  {transaction.tx_hash.slice(0, 10)}...
-                </a>
-              </p>
+              <div className="grid grid-cols-2 gap-4 mb-2">
+                <div className="text-sm text-gray-600">
+                  <strong>Amount:</strong> {formattedAda} ₳
+                </div>
+                <div className="text-sm text-gray-600 text-left">
+                  <strong>Fee:</strong> {fee} ₳
+                </div>
+              </div>
+              <div className="grid grid-cols-2 gap-4 mb-2">
+                <div className="text-sm text-gray-600">
+                  <strong>Date:</strong> {date}
+                </div>
+                <div className="text-sm text-gray-600 text-left">
+                  <strong>
+                    <a
+                      href={`https://cardanoscan.io/transaction/${transaction.tx_hash}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-blue-500 underline"
+                    >
+                      More details
+                    </a>
+                  </strong>
+                </div>
+              </div>
             </div>
           );
         })
