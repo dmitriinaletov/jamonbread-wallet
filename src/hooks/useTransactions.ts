@@ -5,49 +5,62 @@ import { API_URL, API_KEY, ADDRESS } from "../config";
 
 export const useTransactions = () => {
   const [transactions, setTransactions] = useState<Transaction[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
+  const [page, setPage] = useState(1);
+  const [hasMore, setHasMore] = useState(true);
+
+  const fetchTransactions = async (pageNumber: number) => {
+    setIsLoading(true);
+    try {
+      const response = await axios.get<Transaction[]>(
+        `${API_URL}/addresses/${ADDRESS}/transactions`,
+        {
+          headers: { project_id: API_KEY },
+          params: { count: 10, page: pageNumber, order: "desc" }, // Добавлен параметр order
+        }
+      );
+
+      if (response.data.length === 0) {
+        setHasMore(false);
+        return;
+      }
+
+      const transactionDetailsPromises = response.data.map(async (tx) => {
+        try {
+          const detailsResponse = await axios.get(
+            `${API_URL}/txs/${tx.tx_hash}`,
+            {
+              headers: { project_id: API_KEY },
+            }
+          );
+          return { ...tx, details: detailsResponse.data as TransactionDetails };
+        } catch (error) {
+          console.error("Error fetching transaction details:", error);
+          return { ...tx, details: undefined };
+        }
+      });
+
+      const transactionsWithDetails = await Promise.all(
+        transactionDetailsPromises
+      );
+
+      setTransactions((prev) => [...prev, ...transactionsWithDetails]);
+    } catch (error) {
+      console.error("Error fetching transactions:", error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   useEffect(() => {
-    setIsLoading(true);
+    fetchTransactions(page);
+  }, [page]);
 
-    axios
-      .get<Transaction[]>(`${API_URL}/addresses/${ADDRESS}/transactions`, {
-        headers: { project_id: API_KEY },
-      })
-      .then((res) => {
-        const transactionDetailsPromises = res.data.map((tx) =>
-          axios
-            .get(`${API_URL}/txs/${tx.tx_hash}`, {
-              headers: { project_id: API_KEY },
-            })
-            .then((response) => ({
-              ...tx,
-              details: response.data as TransactionDetails,
-            }))
-            .catch((error) => {
-              console.error("Error fetching transaction details:", error);
-              return { ...tx, details: undefined };
-            })
-        );
+  const loadMoreTransactions = () => {
+    if (!isLoading && hasMore) {
+      setPage((prev) => prev + 1);
+    }
+  };
 
-        Promise.all(transactionDetailsPromises)
-          .then((transactionsWithDetails) => {
-            const sortedTransactions = transactionsWithDetails
-              .filter((tx) => tx.details !== undefined)
-              .sort((a, b) => b.details!.block_time - a.details!.block_time);
-
-            setTransactions(sortedTransactions.slice(0, 10));
-          })
-          .catch((error) => {
-            console.error("Error processing transaction details:", error);
-          })
-          .finally(() => setIsLoading(false));
-      })
-      .catch((error) => {
-        console.error("Error fetching transactions:", error);
-        setIsLoading(false);
-      });
-  }, []);
-
-  return { transactions, isLoading };
+  return { transactions, isLoading, loadMoreTransactions, hasMore };
 };
