@@ -8,7 +8,7 @@ export const NftGallery: React.FC<NftGalleryProps> = ({ nfts, onNftClick }) => {
       </h2>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 w-full px-4 sm:px-0 overflow-hidden">
         {nfts.length === 0 ? (
-          <p className="text-center">Loading NFTs...</p>
+          <p className="text-left">Loading NFTs...</p>
         ) : (
           nfts.map((nft, index) => (
             <div

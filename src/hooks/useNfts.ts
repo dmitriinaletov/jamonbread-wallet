@@ -77,5 +77,6 @@ export const useNfts = () => {
         console.error("Error fetching NFTs:", error);
       });
   }, []);
+
   return nfts;
 };

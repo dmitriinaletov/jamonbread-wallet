@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import { useTransactions } from "../hooks/useTransactions";
 import { useNfts } from "../hooks/useNfts";
 import { Popup } from "./popup/Popup";
 import { Header } from "./layout/Header";
@@ -9,7 +8,6 @@ import { NftGallery } from "./content/NftGallery";
 import { Footer } from "./layout/Footer";
 
 const JamonbreadWallet: React.FC = () => {
-  const transactions = useTransactions();
   const nfts = useNfts();
 
   const [selectedNftIndex, setSelectedNftIndex] = useState<number | null>(null);
@@ -67,7 +65,7 @@ const JamonbreadWallet: React.FC = () => {
       )}
       {showTransactionPopup && (
         <Popup onClose={() => setShowTransactionPopup(false)}>
-          <TransactionDetails transactions={transactions} />
+          <TransactionDetails />
         </Popup>
       )}
       <Footer />

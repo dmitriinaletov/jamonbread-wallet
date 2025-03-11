@@ -5,8 +5,11 @@ import { API_URL, API_KEY, ADDRESS } from "../config";
 
 export const useTransactions = () => {
   const [transactions, setTransactions] = useState<Transaction[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
+    setIsLoading(true);
+
     axios
       .get<Transaction[]>(`${API_URL}/addresses/${ADDRESS}/transactions`, {
         headers: { project_id: API_KEY },
@@ -37,12 +40,14 @@ export const useTransactions = () => {
           })
           .catch((error) => {
             console.error("Error processing transaction details:", error);
-          });
+          })
+          .finally(() => setIsLoading(false));
       })
       .catch((error) => {
         console.error("Error fetching transactions:", error);
+        setIsLoading(false);
       });
   }, []);
 
-  return transactions;
+  return { transactions, isLoading };
 };

@@ -1,15 +1,22 @@
-import { Transaction } from "../../types/types";
+import { useTransactions } from "../../hooks/useTransactions";
 
-export const TransactionDetails: React.FC<{ transactions: Transaction[] }> = ({
-  transactions,
-}) => {
+export const TransactionDetails: React.FC = () => {
+  const { transactions, isLoading } = useTransactions();
+
   return (
     <div className="text-left">
       <div className="w-[calc(100%-2rem)] mx-auto">
         <h2 className="text-2xl font-semibold mb-4">Recent Transactions</h2>
       </div>
-      {transactions.length === 0 ? (
-        <p className="text-sm text-gray-600">No transactions available</p>
+
+      {isLoading ? (
+        <p className="w-[calc(100%-2rem)] mx-auto text-sm text-gray-600">
+          Loading transactions...
+        </p>
+      ) : transactions.length === 0 ? (
+        <p className="w-[calc(100%-2rem)] mx-auto text-sm text-gray-600">
+          No transactions available
+        </p>
       ) : (
         transactions.map((transaction) => {
           const date = transaction.details?.block_time
