@@ -16,7 +16,7 @@ export const TransactionDetails: React.FC = () => {
           loadMoreTransactions();
         }
       },
-      { threshold: 1.0 }
+      { threshold: 0 }
     );
 
     if (lastTransactionRef.current) {
