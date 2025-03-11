@@ -11,7 +11,6 @@ export type TransactionDetails = {
 
 export type Transaction = {
   tx_hash: string;
-  amount: Amount[];
   details?: TransactionDetails;
 };
 
@@ -25,10 +24,6 @@ export type NftMetadata = {
   description?: string;
   Description?: string;
   message?: string;
-};
-
-export type HeaderProps = {
-  onBalanceClick: () => void;
 };
 
 export type NftDetailsProps = {

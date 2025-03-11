@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
 import axios from "axios";
+import { useEffect, useState } from "react";
 import { Transaction, TransactionDetails } from "../types/types";
 import { API_URL, API_KEY, ADDRESS } from "../config";
 
