@@ -27,11 +27,6 @@ export type NftMetadata = {
   message?: string;
 };
 
-export type NftGalleryProps = {
-  nfts: NftMetadata[];
-  onNftClick: (index: number) => void;
-};
-
 export type HeaderProps = {
   onBalanceClick: () => void;
 };
