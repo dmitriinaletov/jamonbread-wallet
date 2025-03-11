@@ -65,10 +65,6 @@ export const useTransactions = () => {
       setPage((prev) => prev + 1);
     }
   };
-  console.log("transactions", transactions);
-  console.log("isLoading", isLoading);
-  console.log("loadMoreTransactions", loadMoreTransactions);
-  console.log("hasMore", hasMore);
 
   return { transactions, isLoading, loadMoreTransactions, hasMore };
 };
